@@ -12,6 +12,9 @@ define('ratingwidget', ['core/format', 'jquery'], function(format, $) {
             function showStars(n) {
                 $widget.removeClass('stars-0 stars-1 stars-2 stars-3 stars-4 stars-5')
                        .addClass('stars-' + n);
+                $widget.find('.stars-full')
+                    .removeClass('stars-0 stars-1 stars-2 stars-3 stars-4 stars-5')
+                    .addClass('stars-' + n);
             }
 
             function setStars(n) {
@@ -33,6 +36,10 @@ define('ratingwidget', ['core/format', 'jquery'], function(format, $) {
             }
 
             var stars_html = '';
+            stars_html += format.format(
+                '<div class="stars-full stars-{0}">★★★★★</div><div class="stars-empty">☆☆☆☆☆</div>',
+                [rating ? rating : 0]);
+
             for (var i = 1; i <= 5; i++) {
                 var checked = rating === i ? ' checked' : '';
                 // L10n: {n} is the number of stars
@@ -43,11 +50,13 @@ define('ratingwidget', ['core/format', 'jquery'], function(format, $) {
                     '</label>',
                     [i, ngettext('{n} star', '{n} stars', {n: i}), checked, i]);
             }
+
             $widget.html(stars_html);
             $el.before($widget).detach();
 
             $widget.on('click', function(e) {
                 var target = $(e.target);
+
                 if (target.is('input[type=radio]')) {
                     showStars(rating = target.attr('value'));
                     if (!target.val()) {

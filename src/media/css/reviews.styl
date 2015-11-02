@@ -105,7 +105,7 @@ select[name=rating] {
 }
 
 .rating, .stars {
-    height: 12px;
+    height: 16px;
 }
 
 mkt-prompt .simple-field.rating {
@@ -118,11 +118,13 @@ mkt-prompt .simple-field.rating {
 }
 
 .stars {
-    background: url(../img/pretty/stars.svg) no-repeat;
     background-size: 130px 12px;
+    color: transparent;
     display: inline-block;
-    hidetext();
+    font-size: 13px;
+    overflow: hidden;
     vertical-align: top;
+    white-space: nowrap;
     width: 65px;
 
     +rtl() {
@@ -133,6 +135,22 @@ mkt-prompt .simple-field.rating {
     &.stars-2 { background-position: -39px 0; }
     &.stars-1 { background-position: -52px 0; }
     &.stars-0 { background-position: -65px 0; }
+}
+
+.stars .stars-full {
+    color: $action-positive;
+    display: inline-block;
+
+    &.stars-4 { margin-left: -13px; }
+    &.stars-3 { margin-left: -26px; }
+    &.stars-2 { margin-left: -39px; }
+    &.stars-1 { margin-left: -52px; }
+    &.stars-0 { margin-left: -65px; }
+}
+
+.stars .stars-empty {
+    color: $action-disabled;
+    display: inline-block;
 }
 
 .stars.ratingwidget {
@@ -150,7 +168,38 @@ mkt-prompt .simple-field.rating {
     label {
         height: 40px;
         width: 44px;
+        position: absolute;
+        margin-top: -40px;
+
+        &[data-stars="5"] { margin-left: 176px; }
+        &[data-stars="4"] { margin-left: 132px; }
+        &[data-stars="3"] { margin-left: 88px; }
+        &[data-stars="2"] { margin-left: 44px; }
     }
+}
+
+.stars.ratingwidget .stars-full {
+    display: inline-block;
+    float: left;
+    font-size: 44px;
+    margin-top: -5px;
+    padding-top: 17px;
+
+    &.stars-5 { margin-left: 0; }
+    &.stars-4 { margin-left: -44px; }
+    &.stars-3 { margin-left: -88px; }
+    &.stars-2 { margin-left: -132px; }
+    &.stars-1 { margin-left: -176px; }
+    &.stars-0 { margin-left: -220px; }
+
+}
+
+.stars.ratingwidget .stars-empty {
+    display: inline-block;
+    font-size: 44px;
+    margin-top: -5px;
+    margin-left: 0;
+    padding-top: 17px;
 }
 
 .no-rating strong {
